@@ -201,11 +201,11 @@ _.uniq = function(array) {
       //set it to the first value of the array
       accumulator = value;
     }else{
-      //or else, run the callback on the memo and value
+      //or else, run the callback on the accumulator and value
       accumulator = iterator(accumulator, value);
     }
   });
-  //return the memo;
+  //return the accumulator;
   return accumulator;
 };
 
