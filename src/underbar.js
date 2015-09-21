@@ -224,8 +224,24 @@ _.uniq = function(array) {
 
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
-    // TIP: Try re-using reduce() here.
-  };
+   
+
+    var iterator = iterator || function (val) { return val; };
+
+    //set the truthTest to true
+    var truthTest = true;
+    //loop throught the collection
+    _.each(collection, function (value){
+      //if it doens't pass
+      if(!iterator(value)){
+      //set the truthTest to false;
+      truthTest = false;
+      }
+  });
+  //return the truthTest
+  return truthTest;
+}
+
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
