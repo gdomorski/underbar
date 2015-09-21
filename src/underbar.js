@@ -7,6 +7,7 @@
   // seem very useful, but remember it--if a function needs to provide an
   // iterator when the user does not pass one in, this will be handy.
   _.identity = function(val) {
+    //return the val
     return val;
   };
 
@@ -32,17 +33,24 @@
   // Return an array of the first n elements of an array. If n is undefined,
   // return just the first element.
   _.first = function(array, n) {
+    //uses a conditional operator. If n is undefined, returns the first value in the array or returns
+    //how many items the user inputs.
     return n === undefined ? array[0] : array.slice(0, n);
   };
 
   // Like first, but for the last elements. If n is undefined, return just the
   // last element.
   _.last = function(array, n) {
+    //if n is undefined
     if (n === undefined) {
+      //return the last element
       return array[array.length-1];
+      //if n is equal to 0
     } else if (n === 0){
+      //return an empty array
       return [];
     }
+    //or... return the number the user puts in...
     return array.slice(-n)
   };
   // Call iterator(value, key, collection) for each element of collection.
@@ -51,12 +59,17 @@
   // Note: _.each does not have a return value, but rather simply runs the
   // iterator function over each item in the input collection.
   _.each = function(collection, iterator) {
+    //if it is an array
     if(Array.isArray(collection)){
+      //loop through it..
       for(var i = 0; i < collection.length; i++){
+        //run the iterator on the value, while also passing in the index and collection
         iterator(collection[i], i, collection);
       }
     } else {
+      //if it is not an array, it must be an object, so we loop through it
       for(var key in collection){
+        //run the iterator on the value, while also passing in the key and collection
         iterator(collection[key], key, collection);
       }
     }
@@ -69,7 +82,6 @@
     // implemented for you. Instead of using a standard `for` loop, though,
     // it uses the iteration helper `each`, which you will need to write.
     var result = -1;
-
     _.each(array, function(item, index) {
       if (item === target && result === -1) {
         result = index;
@@ -115,12 +127,15 @@
   // Produce a duplicate-free version of the array.
 _.uniq = function(array) {
     var newArr = [];
-
+    //loop through the array
     _.each(array, function(val){
+      //check the index to see if the value is in the array
       if(_.indexOf(newArr, val) === -1){
+        //if it is not push it in the new array
         newArr.push(val);
       }
     })
+    //return the new array
     return newArr;
 };
 
@@ -180,7 +195,19 @@ _.uniq = function(array) {
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
-  };
+    _.each(collection, function (value, index){
+    //if there is no accumulator
+    if(accumulator === undefined){
+      //set it to the first value of the array
+      accumulator = value;
+    }else{
+      //or else, run the callback on the memo and value
+      accumulator = iterator(accumulator, value);
+    }
+  });
+  //return the memo;
+  return accumulator;
+};
 
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
