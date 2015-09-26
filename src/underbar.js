@@ -227,7 +227,6 @@ _.uniq = function(array) {
    
 
     var iterator = iterator || function (val) { return val; };
-
     //set the truthTest to true
     var truthTest = true;
     //loop throught the collection
@@ -247,6 +246,11 @@ _.uniq = function(array) {
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    var iterator = iterator || function (val) { return val; };
+    return !(_.every(collection, function(val) {
+        //if it does pass the truth test, 
+        return !iterator(val);
+    }));
   };
 
 
