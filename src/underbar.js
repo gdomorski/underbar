@@ -273,12 +273,35 @@ _.uniq = function(array) {
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
+   //loop through the arguments
+    for(var i = 1; i < arguments.length; i++) {
+      var args = arguments[i];
+      _.each(args, function(value, prop) {
+        //add the new value
+        obj[prop] = value;
+      });
+    }
+    return obj;
   };
+ 
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+    //loop through the arguments
+    for(var i = 1; i < arguments.length; i++) {
+      var args = arguments[i];
+      _.each(args, function(value, prop) {
+        //if it is not there
+        if(!obj.hasOwnProperty(prop)) {
+          //assign the value
+          obj[prop] = value;
+        }
+      });
+    }
+    return obj;
   };
+
 
 
   /**
