@@ -343,9 +343,20 @@ _.uniq = function(array) {
   // _.memoize should return a function that, when called, will check if it has
   // already computed the result for the given argument and return that value
   // instead if possible.
-  _.memoize = function(func) {
-  };
 
+
+  _.memoize = function(func) {
+    var cache = {};
+
+    return function() {
+      var arg = JSON.stringify(arguments);
+      if (!cache[arg]) {
+        cache[arg] = func.apply(this, arguments);
+      }
+
+      return cache[arg];
+    };
+  };
   // Delays a function for the given number of milliseconds, and then calls
   // it with the arguments supplied.
   //
