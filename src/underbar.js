@@ -365,8 +365,9 @@ _.uniq = function(array) {
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
-    //call the slice method from the Array prototype chain on the arguments object
-    //set the number to 2, so it will pass the function and wait time 
+    /* call the slice method from the Array prototype chain on the arguments object
+    even though 'arugments' is an object, it is very similar to an array, so we can use slice
+    set the number to 2, so it will pass the function and wait time */
     var args = Array.prototype.slice.call(arguments, 2);
     //set timeout calls a function one time, 
     return setTimeout(function() {
