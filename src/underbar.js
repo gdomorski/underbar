@@ -348,14 +348,15 @@ _.uniq = function(array) {
   _.memoize = function(func) {
     var cache = {};
 
-    return function() {
-      var arg = JSON.stringify(arguments);
-      if (!cache[arg]) {
-        cache[arg] = func.apply(this, arguments);
+    return function(val) {
+      //if the value is not in our cache
+      if (!cache[val]) {
+        //assign the key value pair to the cache obj
+        cache[val] = func.apply(this, arguments);
       }
-
-      return cache[arg];
-    };
+      //or we will return the cached value
+      return cache[val];
+    }
   };
   // Delays a function for the given number of milliseconds, and then calls
   // it with the arguments supplied.
@@ -364,6 +365,14 @@ _.uniq = function(array) {
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    //call the slice method from the Array prototype chain on the arguments object
+    //set the number to 2, so it will pass the function and wait time 
+    var args = Array.prototype.slice.call(arguments, 2);
+    //set timeout calls a function one time, 
+    return setTimeout(function() {
+      //use apply with the args
+      return func.apply(this, args);
+    }, wait);
   };
 
 
