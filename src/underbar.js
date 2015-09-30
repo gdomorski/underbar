@@ -387,7 +387,28 @@ _.uniq = function(array) {
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
-  };
+
+  //make a copy of the existing array so we can modify it
+  var arr = array.slice(0,array.length);
+
+  var currentIndex = arr.length, tempVal, randomIndex;
+
+  //use the fisher yates shuffle method
+  while (0 !== currentIndex) {
+    //find a random index
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    //subtract the current index by one
+    currentIndex -= 1;
+    //do the switch!
+    tempVal = arr[currentIndex];
+    arr[currentIndex] = arr[randomIndex];
+    arr[randomIndex] = tempVal;
+  }
+  //return the shuffled array
+  return arr;
+}
+
+
 
 
   /**
